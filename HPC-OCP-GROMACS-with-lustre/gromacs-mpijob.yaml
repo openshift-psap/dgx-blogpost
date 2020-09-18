@@ -1,0 +1,81 @@
+apiVersion: kubeflow.org/v1alpha2
+kind: MPIJob
+metadata:
+  name: gromacs-benchmark
+spec:
+  slotsPerWorker: 1
+  cleanPodPolicy: Running
+  mpiReplicaSpecs:
+    Launcher:
+      replicas: 1
+      template:
+         spec:
+           imagePullSecrets:
+           - name: openshift-psap-dagray-openshift-pull-secret
+           #hostNetwork: true
+           containers:
+           - image: quay.io/openshift-psap/hpc-mpi-gromacs:m5xlarge
+             name: gromacs-container
+             command:
+             - mpirun
+             - --allow-run-as-root
+             - -np
+             - "8"
+             - -bind-to
+             - none
+             - -map-by
+             - slot
+             - -mca
+             - pml
+             - ob1
+             - -mca
+             - btl
+             - ^openib
+             - /usr/local/gromacs/bin/gmx_mpi
+             - mdrun
+             - -noconfout
+             - -nsteps
+             - "800"
+             - -resethway
+             - -v
+             - -ntomp
+             - "4"
+             - -pin
+             - "on"
+             - -s
+             - "/data/water-cut1.0_GMX50_bare/1536/topol.tpr"
+             - -g
+             - "/data/md.log"
+             volumeMounts:
+             - name: persistent-storage
+               mountPath: /data
+           volumes:
+           - name: persistent-storage
+             persistentVolumeClaim:
+               claimName: fsx-claim
+    Worker:
+      replicas: 8
+      template:
+        spec:
+          nodeSelector:
+            node.kubernetes.io/instance-type: "m5.2xlarge"
+          imagePullSecrets:
+          - name: openshift-psap-dagray-openshift-pull-secret
+          #hostNetwork: true
+          containers:
+          - image: quay.io/openshift-psap/hpc-mpi-gromacs:m5xlarge
+            name: gromacs-container
+            resources:
+              limits:
+                memory: "4000Mi"
+                cpu: "4100m"
+              requests:
+                memory: "4000Mi"
+                cpu: "4100m"
+            volumeMounts:
+            - name: persistent-storage
+              mountPath: /data
+          volumes:
+          - name: persistent-storage
+            persistentVolumeClaim:
+              claimName: fsx-claim
