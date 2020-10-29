@@ -1,0 +1,84 @@
+apiVersion: kubeflow.org/v1alpha2
+kind: MPIJob
+metadata:
+  name: gromacs-benchmark
+spec:
+  slotsPerWorker: 1
+  cleanPodPolicy: Running
+  mpiReplicaSpecs:
+    Launcher:
+      replicas: 1
+      template:
+         metadata:
+           annotations:
+             k8s.v1.cni.cncf.io/networks: mpi-network
+         spec:
+           containers:
+                   # - image: image-registry.openshift-image-registry.svc:5000/default/gromacs-imagestream:5039ms
+           - image: quay.io/dagray/gromacs5039
+             name: gromacs-container
+             command:
+             - mpirun
+             - --allow-run-as-root
+             - -np
+             - "8"
+             - -bind-to
+             - none
+             - -map-by
+             - slot
+             - -mca
+             - pml
+             - ob1
+             - -mca
+             - btl
+             - ^openib
+             - -mca 
+             - btl_tcp_if_include
+             - net1
+             - /usr/local/gromacs/bin/gmx_mpi
+             - mdrun
+             - -ntomp
+             - "4"
+             - -resethway
+             - -noconfout
+             - -nsteps
+             - "3200"
+             - -v
+             - -pin
+             - "on"
+             - -dlb
+             - "yes"
+             - -s
+             - "/data/water-cut1.0_GMX50_bare/1536/topol.tpr"
+             volumeMounts:
+             - name: persistent-storage
+               mountPath: /data
+           volumes:
+           - name: persistent-storage
+             persistentVolumeClaim:
+               claimName: gromacs
+    Worker:
+      replicas: 8
+      template:
+        metadata:
+          annotations:
+            k8s.v1.cni.cncf.io/networks: mpi-network
+        spec:
+          containers:
+                  #  - image: image-registry.openshift-image-registry.svc:5000/default/gromacs-imagestream:5039ms
+          - image: quay.io/dagray/gromacs5039
+            name: gromacs-container
+            resources:
+              limits:
+                memory: "12000Mi"
+                cpu: "4100m"
+              requests:
+                memory: "12000Mi"
+                cpu: "4100m"
+            volumeMounts:
+            - name: persistent-storage
+              mountPath: /data
+          volumes:
+          - name: persistent-storage
+            persistentVolumeClaim:
+              claimName: gromacs
