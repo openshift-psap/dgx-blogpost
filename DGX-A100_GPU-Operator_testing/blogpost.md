@@ -3,12 +3,12 @@ Functional and Performance Testing of the NVIDIA DGX-A100
 
 _By Kevin Pouget_
 
-In this blog post, part of a series on the DGX-A100 OpenShift
-launch, we present the functional and performance assessement we performed
-to validate the behavior of the DGXA100 8x A100 GPUs. This study was
-performed on OpenShift 4.9 with the GPU computing stack deployed by
-the GPU Operator v1.9. It is a follow-up on our previous work on
-[enabling MIG support in the GPU Operator] and
+In this blog post, part of a series on the NVIDIA DGX A100 support on
+OpenShift, we present the functional and performance assessement we
+performed to validate the behavior of the DGX A100 8x A100 GPUs. This
+study was performed on OpenShift 4.9 with the GPU computing stack
+deployed by the NVIDIA GPU Operator v1.9. It is a follow-up on our
+previous work on [enabling MIG support in the GPU Operator] and
 [benchmarking AI/ML performance on a single A100 GPU].
 
 In this work, we paid particular attention to the reproducibility of
@@ -275,13 +275,12 @@ terminate successfully yet,
 2. `visualize` to parse the benchmark artifacts, and provide a dynamic
 Web interface to visualize the data results.
 
-In the following subsections, we present more concretely the script in
-charge of running the MLPerf SSD benchmark, according to the
-configuration settings provided by the `MatrixBenchmarking`
-framework. We also present how the script stores reproduction
-artifacts, to allow anyone to re-run a particular benchmark without
-hassle; and observation artifacts, to allow studying the exact setup
-in which the benchmark ran.
+In the following subsections, we will more thoroughly present the
+script in charge of running the MLPerf SSD benchmark. We also detail
+the observation artifacts we collect, that allow studying post-mortem
+the exact setup in which the benchmark ran; as well as the
+reproduction artifacts, allowing anyone to re-run a particular
+benchmark without hassle.
 
 Execution of the SSD benchmark on OpenShift: `run_ssd.py`
 ---------------------------------------------------------
