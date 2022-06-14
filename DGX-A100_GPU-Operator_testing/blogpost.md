@@ -755,7 +755,7 @@ Final words
 ===========
 
 In this blog post, we presented how we performed the function
-validation of the GPU Operator running on 8 GPUs of the DGX-A100. We
+validation of the OpenShift GPU Operator running on 8 GPUs of the DGX-A100. We
 described the different Multi-Instance GPU (MIG) modes that we tested,
 as well as how the values of the node labels and GPU resources for
 these different settings. We also conducted a performance benchmark,
@@ -764,7 +764,7 @@ single AI/ML model, or all performing independent computations.
 
 As a follow-up of this work, we're planning on doing more work around
 AI/ML computing at large scale, such as multi-GPU multi-node training,
-with multiple DGXA100 interconnected with NVIDIA GPUDirect RDMA
+with multiple DGX A100 interconnected with NVIDIA GPUDirect RDMA
 high-performance networks. To generate enough compute requirements,
 we'll turn towards the greedy natural language models such as BERT or
 Transformer-XL. Stay tuned!
