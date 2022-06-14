@@ -765,7 +765,7 @@ single AI/ML model, or all performing independent computations.
 
 As a follow-up of this work, we're planning on doing more work around
 AI/ML computing at large scale, such as multi-GPU multi-node training,
-with multiple DGXA100 interconnected with NVIDIA GPUDirec RDMA
+with multiple DGXA100 interconnected with NVIDIA GPUDirect RDMA
 high-performance networks. To generate enough compute requirements,
 we'll turn towards the greedy natural language models such as BERT or
 Transformer-XL. Stay tuned!
