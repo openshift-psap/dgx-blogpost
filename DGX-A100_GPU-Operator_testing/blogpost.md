@@ -402,7 +402,7 @@ Example of configuration:
 
 ### Requesting one GPUs per Pod in 8 Pods
 
-- [Test artifacts](results/mlperf/dgx-test/20211209/gpu=7g.40gb_1gpu_x_8pod/run_20211209_1519.4e94)
+- [Test artifacts](https://github.com/openshift-psap/blog-artifacts/blob/1f368b17f180c9ceaa5660eb32acb57256f4df0b/DGX-A100_GPU-Operator_testing/results/mlperf/dgx-test/20211209/gpu=7g.40gb_1gpu_x_8pod/run_20211209_1519.4e94)
 - Job parallelism: `8`
 - Container resources:
 ```
@@ -420,7 +420,7 @@ GPU 0: NVIDIA A100-SXM4-40GB (UUID: GPU-55b69871-247e-9b99-a60a-7daca59a4108)
 
 ### Requesting all the GPUs in one Pod
 
-- [Test artifacts](results/mlperf/dgx-test/20211209/gpu=7g.40gb_8gpu_x_1pod/run_20211209_1519.57ea)
+- [Test artifacts](https://github.com/openshift-psap/blog-artifacts/blob/1f368b17f180c9ceaa5660eb32acb57256f4df0b/DGX-A100_GPU-Operator_testing/results/mlperf/dgx-test/20211209/gpu=7g.40gb_8gpu_x_1pod/run_20211209_1519.57ea)
 - Job parallelism: `1`
 - Container resources:
 ```
@@ -458,7 +458,7 @@ that there are not enough GPU resources available to schedule the
 second Pod, so it delays it until the resources are released. Hence,
 the execution of the two Pods is sequential.
 
-- [Test artifacts](results/mlperf/dgx-test/20211209/gpu=7g.40gb_5gpu_x_2pod/run_20211209_1519.e78a)
+- [Test artifacts](https://github.com/openshift-psap/blog-artifacts/blob/1f368b17f180c9ceaa5660eb32acb57256f4df0b/DGX-A100_GPU-Operator_testing/results/mlperf/dgx-test/20211209/gpu=7g.40gb_5gpu_x_2pod/run_20211209_1519.e78a)
 - Job parallelism: `2`
 - Container resources:
 ```
@@ -514,7 +514,7 @@ Example of configuration:
 
 ### Requesting 1 `MIG-2g.10gb` GPUs in 24 Pods
 
-- [Test artifacts](results/mlperf/dgx-test/20211209/gpu=2g.10gb_1gpu_x_24pod/run_20211210_1552.e1c8/)
+- [Test artifacts](https://github.com/openshift-psap/blog-artifacts/blob/1f368b17f180c9ceaa5660eb32acb57256f4df0b/DGX-A100_GPU-Operator_testing/results/mlperf/dgx-test/20211209/gpu=2g.10gb_1gpu_x_24pod/run_20211210_1552.e1c8/)
 - MIG configuration: `nvidia.com/mig.config=all-2g.10gb`
 - Job parallelism: `24`
 - Container resources:
@@ -533,7 +533,7 @@ GPU 0: NVIDIA A100-SXM4-40GB (UUID: GPU-55b69871-247e-9b99-a60a-7daca59a4108)
 
 ### Requesting 24 `MIG-2g.10gb` GPUs in 1 Pod
 
-- [Test artifacts](results/mlperf/dgx-test/20211209/gpu=2g.10gb_24gpu_x_1pod/run_20211210_1552.517e)
+- [Test artifacts](https://github.com/openshift-psap/blog-artifacts/blob/1f368b17f180c9ceaa5660eb32acb57256f4df0b/DGX-A100_GPU-Operator_testing/results/mlperf/dgx-test/20211209/gpu=2g.10gb_24gpu_x_1pod/run_20211210_1552.517e)
 - MIG configuration: `nvidia.com/mig.config=all-2g.10gb`
 - Job parallelism: `1`
 - Container resources:
@@ -565,7 +565,7 @@ This test case creates two `Jobs` requesting 4 Pods. One of the `Job`
 requests resources of type `nvidia.com/mig-3g.20gb` and the second one
 requests resources of type `nvidia.com/mig-2g.10gb`.
 
-- [Test artifacts](results/mlperf/dgx-test/20211209/gpu=2g.10gb,3g.20gb_1gpu_x_4pod/run_20211209_1519.334c)
+- [Test artifacts](https://github.com/openshift-psap/blog-artifacts/blob/1f368b17f180c9ceaa5660eb32acb57256f4df0b/DGX-A100_GPU-Operator_testing/results/mlperf/dgx-test/20211209/gpu=2g.10gb,3g.20gb_1gpu_x_4pod/run_20211209_1519.334c)
 - MIG configuration: `nvidia.com/mig.config=all-balanced`
 - Job parallelism: `4`
 - Container resources:
@@ -661,7 +661,7 @@ And to validate the proper slicing of all the GPUs, we launched a Pod
 requesting 0 GPUs, meaning that we got access to all the GPUs of the
 node:
 
-- [Test artifacts](results/mlperf/dgx-test/20211209/gpu=2g.10gb_0gpu_x_1pod/run_20211217_1222.1e2f/)
+- [Test artifacts](https://github.com/openshift-psap/blog-artifacts/blob/1f368b17f180c9ceaa5660eb32acb57256f4df0b/DGX-A100_GPU-Operator_testing/results/mlperf/dgx-test/20211209/gpu=2g.10gb_0gpu_x_1pod/run_20211217_1222.1e2f/)
 - MIG configuration: `nvidia.com/mig.config=custom-config`
 - Job parallelism: `1`
 - Container resources:
