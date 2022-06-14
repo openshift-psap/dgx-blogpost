@@ -1,4 +1,4 @@
-Functional and Performance Testing of the NVIDIA DGX-A100
+Functional and Performance Testing of the NVIDIA DGX A100
 =========================================================
 
 _By Kevin Pouget_
