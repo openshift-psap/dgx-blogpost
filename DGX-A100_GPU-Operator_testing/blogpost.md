@@ -47,8 +47,6 @@ This operator is in charge of labeling the worker nodes with hardware
 and system properties. It is a prerequisite for the NVIDIA GPU
 Operator, as it detects NVIDIA GPU PCI cards and advertises them on
 the node label `feature.node.kubernetes.io/pci-10de.present=true`.
-Do not forget to create the default `NodeFeatureDiscovery` custom
-resource.
 
 [OpenShift Node Feature Discovery Operator]: https://docs.openshift.com/container-platform/4.9/hardware_enablement/psap-node-feature-discovery-operator.html
 
@@ -59,7 +57,10 @@ including the kernel driver, in all of the GPU nodes. Since v1.9.0,
 help of NFD labels, the GPU Operator will automatically detect the DGX
 A100 node and install (via containers) the necessary drivers, services
 and CUDA libraries to run GPU workload.
-Do not forget to create the default `ClusterPolicy` custom resource
+
+Do not forget the last step, the creation of the `ClusterPolicy`
+custom resource! This object defines the configuration of the GPU
+stack, and without it, nothing will be deployed on the nodes!
 
 [NVIDIA GPU Operator]: https://docs.nvidia.com/datacenter/cloud-native/gpu-operator/openshift/contents.html
 [the deployment of RHEL entitlement is not necessary anymore]: https://cloud.redhat.com/blog/entitlement-free-deployment-of-the-nvidia-gpu-operator-on-openshift
