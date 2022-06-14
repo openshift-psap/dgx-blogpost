@@ -263,8 +263,8 @@ directories, and stores the raw measurements into Python structures.
 [Plotly](https://plotly.com/python/) graphs.
 
 [A benchmark execution script]: https://github.com/openshift-psap/matrix-benchmarking-workloads/tree/5edb9e2da0d696a965c58d7c52b39c6e80c37e1c/mlperf/exec
-[A storage module]: https://github.com/openshift-psap/matrix-benchmarking-workloads/blob/5edb9e2da0d696a965c58d7c52b39c6e80c37e1c/mlperf/store.py
-[A visualization module]: https://github.com/openshift-psap/matrix-benchmarking-workloads/tree/5edb9e2da0d696a965c58d7c52b39c6e80c37e1c/mlperf/plotting
+[A Python storage module]: https://github.com/openshift-psap/matrix-benchmarking-workloads/blob/5edb9e2da0d696a965c58d7c52b39c6e80c37e1c/mlperf/store.py
+[A Python visualization module]: https://github.com/openshift-psap/matrix-benchmarking-workloads/tree/5edb9e2da0d696a965c58d7c52b39c6e80c37e1c/mlperf/plotting
 
 
 The `MatrixBenchmarking` framework combines these modules and provides
