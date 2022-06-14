@@ -12,7 +12,7 @@ the GPU Operator v1.9. It is a follow-up on our previous work on
 [benchmarking AI/ML performance on a single A100 GPU].
 
 In this work, we paid particular attention to the reproducibility of
-the functional and performance testing, so that the whole testing
+the functional and performance tests, so that the whole testing
 procedure can be easily re-executed in any freshly deployed OpenShift
 cluster.
 
