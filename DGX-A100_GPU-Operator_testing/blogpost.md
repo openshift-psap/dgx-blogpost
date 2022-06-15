@@ -4,7 +4,7 @@ Functional and Performance Testing of the NVIDIA DGX A100
 _By Kevin Pouget_
 
 In this blog post, part of a series on the NVIDIA DGX A100 support on
-OpenShift, we present the functional and performance assessement we
+OpenShift, we present the functional and performance assessment we
 performed to validate the behavior of the DGX A100 8x A100 GPUs. This
 study was performed on OpenShift 4.9 with the GPU computing stack
 deployed by the NVIDIA GPU Operator v1.9. It is a follow-up on our
