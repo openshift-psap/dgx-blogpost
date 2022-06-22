@@ -3,11 +3,11 @@ Functional and Performance Testing of the NVIDIA DGX A100
 
 _By Kevin Pouget_
 
-In this blog post, part of a series on the NVIDIA DGX A100 support on
-OpenShift, we present the functional and performance assessment we
-performed to validate the behavior of the DGX A100 8x A100 GPUs. This
+As part of a series on NVIDIA DGX™ A100 support on
+OpenShift, this post presents the functional and performance assessment we
+performed to validate the behavior of the DGX™ A100 system, including its eight NVIDIA A100 GPUs. This
 study was performed on OpenShift 4.9 with the GPU computing stack
-deployed by the NVIDIA GPU Operator v1.9. It is a follow-up on our
+deployed by NVIDIA GPU Operator v1.9. It is a follow-up on our
 previous work on [enabling MIG support in the GPU Operator] and
 [benchmarking AI/ML performance on a single A100 GPU].
 
@@ -21,10 +21,10 @@ implementation of the Single Shot Detector (SSD) AI/ML model, from
 [MLCommons MLPerf v0.7 repository],
 running against [the COCO dataset](https://cocodataset.org/).
 
-In the following sections, we first describe how we prepared the
-cluster, then we go through the functional testing of the MIG
-partitioning control of the GPU Operator. Then, we present the
-performance benchmarking we performed to validate the speed up gain
+In the following sections, we describe how we prepared the
+cluster, then go through the functional testing of the MIG
+partitioning control of the GPU Operator. We also present the
+performance benchmarking performed to validate the speed up gain
 when using multiple GPUs to run the SSD algorithm, and the
 performance isolation when running multiple independent workloads on
 each of the GPUs.
@@ -54,13 +54,9 @@ the node label `feature.node.kubernetes.io/pci-10de.present=true`.
 cornerstone of this work. It deploys the GPU computing stack,
 including the kernel driver, in all of the GPU nodes. Since v1.9.0,
 [the deployment of RHEL entitlement is not necessary anymore]. With the
-help of NFD labels, the GPU Operator will automatically detect the DGX
+help of NFD labels, the GPU Operator will automatically detect DGX™
 A100 node and install (via containers) the necessary drivers, services
-and CUDA libraries to run GPU workload.
-
-Do not forget the last step, the creation of the `ClusterPolicy`
-custom resource! This object defines the configuration of the GPU
-stack, and without it, nothing will be deployed on the nodes!
+and CUDA libraries to run GPU workloads.
 
 [NVIDIA GPU Operator]: https://docs.nvidia.com/datacenter/cloud-native/gpu-operator/openshift/contents.html
 [the deployment of RHEL entitlement is not necessary anymore]: https://cloud.redhat.com/blog/entitlement-free-deployment-of-the-nvidia-gpu-operator-on-openshift
@@ -77,7 +73,7 @@ at least 30 GB of available disk space.
 [LocalVolume resource]: cluster_setup.md
 
 
-Prepare the dataset and the container image
+Prepare the Dataset and the Container Image
 -------------------------------------------
 
 Once the operators have been installed and configured, we must prepare the
@@ -223,7 +219,7 @@ oc patch clusterpolicy/gpu-cluster-policy --type='json' -p='[{"op": "replace", "
 Once all of these steps have been carried out, the cluster is ready
 for executing our benchmark suite. In the following section, we
 present the reproducible benchmarking environment we used for running the
-GPU computing validation benchmarks on the DGX A100 system.
+GPU computing validation benchmarks on the DGX™ A100 system.
 
 Reproducible Benchmarking Environment
 =====================================
@@ -231,12 +227,12 @@ Reproducible Benchmarking Environment
 Running the validation benchmarks can be done manually, by instantiating
 the Kubernetes resources and waiting for the completion of the workload
 jobs. However, this would not scale well, when the number of
-benchmarks to run starts to get large.
+benchmarks to run gets larger.
 
 To solve this problem, we used the [`MatrixBenchmarking`] framework,
 which allows specifying a list of workload configurations that should
-be benchmarked. See this configuration file for the settings we used
-in this work, and this directory for the code used for running and plotting
+be benchmarked. See this configuration file for the settings used,
+and this directory for the code used for running and plotting
 the benchmark.
 
 [`MatrixBenchmarking`]: https://github.com/openshift-psap/matrix-benchmarking/tree/693be58f72c2f8f96fd3f77f6e6d08637b183c4e
@@ -272,9 +268,9 @@ The `MatrixBenchmarking` framework combines these modules and provides
 two commands:
 
 1. `benchmark` to run all the benchmark configurations that did not
-terminate successfully yet,
+terminate successfully yet
 2. `visualize` to parse the benchmark artifacts, and provide a dynamic
-Web interface to visualize the data results.
+Web interface to visualize the data results
 
 In the following subsections, we will more thoroughly present the
 script in charge of running the MLPerf SSD benchmark. We also detail
@@ -283,7 +279,7 @@ the exact setup in which the benchmark ran; as well as the
 reproduction artifacts, allowing anyone to re-run a particular
 benchmark without hassle.
 
-Execution of the SSD benchmark on OpenShift: `run_ssd.py`
+Execution of the SSD Benchmark on OpenShift: `run_ssd.py`
 ---------------------------------------------------------
 
 [`run_ssd.py`] is our script in charge of launching the MLPerf
@@ -335,7 +331,7 @@ artifacts we currently gather for each of the benchmark execution:
 The second part of the artifacts generated by the benchmark relates to
 the reproduction artifacts.
 
-Reproduction steps
+Reproduction Steps
 ------------------
 
 Reproduction artifacts provide an easy way to re-execute a particular
@@ -353,7 +349,7 @@ re-execution are the following:
 - GPU configuration:
   - `mig-strategy.txt`: the MIG advertisement strategy to configure in
     the `ClusterPolicy`
-  - `mig-label.txt`: the MIG label to apply to the DGX node
+  - `mig-label.txt`: the MIG label to apply to DGX™ A100
   - `entrypoint.cm.yaml`: the entrypoint script controlling the
     workload execution in the Pods
   - `job_spec.run-ssd.yaml`: the Job defining the benchmark workload
@@ -362,22 +358,24 @@ Along with the cluster setup presented in the previous section, these
 artifacts should be enough to reproduce the benchmark execution.
 
 In the following subsection, we describe the functional testing we
-performed on the DGX A100, to validate the good behavior of the NVIDIA
+performed on DGX™ A100, to validate the good behavior of the NVIDIA
 GPU Operator with the eight MIG-capable GPUs.
 
-Testing of the MIG capabilities
-===============================
+Testing of MIG Capabilities
+===========================
 
-The DGX A100 offers eight MIG-capable GPUs. In this section, we
-present different tests we ran to validate that the GPU Operator is
-able to properly configure the MIG GPUs. The original work on dynamic
-MIG reconfiguration was presented in [this blog post], and it is also
+DGX™ A100 offers eight integrated MIG-capable NVIDIA A100 Tensor
+Core GPUs with 320 GB and 640 GB GPU memory options. In this section,
+we present different tests we ran to validate that the GPU Operator is
+able to properly configure MIG functionality on the 320 GB
+configuration (40 GB per GPU). The original work on dynamic MIG
+reconfiguration was presented in [this blog post], and it is also
 documented on [the GPU Operator web page].
 
 [this blog post]: https://cloud.redhat.com/blog/multi-instance-gpu-support-with-the-gpu-operator-v1.7.0
 [the GPU Operator web page]: https://docs.nvidia.com/datacenter/cloud-native/gpu-operator/openshift/mig-ocp.html
 
-`single` advertisement strategy
+`single` Advertisement Strategy
 -------------------------------
 
 With the single advertisement strategy, the GPU Operator exposes the
@@ -488,7 +486,7 @@ exporter:
 
 ![Sequential execution of two GPU pods](plots/prom_sequential.png)
 
-`mixed` advertisement strategy
+`mixed` Advertisement Strategy
 ------------------------------
 
 The `mixed` advertisement strategy exposes MIG GPUs with a custom
@@ -615,13 +613,13 @@ resources: # this configuration is not supported
     nvidia.com/mig-2g.10gb: "8"
 ```
 
-Defining a custom multi-GPU MIG configuration
+Defining a Custom Multi-GPU MIG Configuration
 ---------------------------------------------
 
 The GPU Operator provides a predefined list of possible MIG
 configurations, for the different MIG-capable GPUs already
 released. These configurations also work in a multi-GPU node, such as
-the DGX A100, however the same MIG slicing will be applied to all the
+DGX™ A100, however, the same MIG slicing will be applied to all the
 GPUs of the node. It is possible to override this default
 configuration by providing a custom ConfigMap containing the desired
 configuration. See the [GPU Operator documentation] to find out how to
@@ -700,7 +698,7 @@ GPU 7: NVIDIA A100-SXM4-40GB (UUID: GPU-fccb396c-ecba-9822-6217-a790cd2c9d3f)
   MIG 1g.5gb      Device  3: (UUID: MIG-2bcdbd01-44e6-5f68-ae6f-77448d2529f9)
 ```
 
-This concludes the functional testing we performed on the DGX A100 to
+This concludes the functional testing we performed on DGX™ A100 to
 validate the proper behavior of MIG slicing and GPU requesting. In the
 following subsection, we present the results of the performance
 benchmarking.
@@ -708,19 +706,19 @@ benchmarking.
 Benchmarking of the GPUs
 ========================
 
-The second part of the DGX A100 testing consisted in the validation of
+The second part of DGX™ A100 testing consisted in the validation of
 the GPU computing performance, in particular when multiple GPUs are
 involved in the computation.
 
 Multi-GPU Performance Benchmarking
 ----------------------------------
 
-As a follow-up of [our previous work on benchmarking a single A100],
+As a follow-up of [our previous work on benchmarking a single NVIDIA A100 GPU],
 we continued with the MLPerf 0.7 SSD training benchmark, from the
 PyTorch implementation submitted by NVIDIA. The benchmark was running
 against the Coco 2017 benchmark.
 
-[our previous work on benchmarking a single A100]: https://cloud.redhat.com/blog/using-nvidia-a100s-multi-instance-gpu-to-run-multiple-workloads-in-parallel-on-a-single-gpu
+[our previous work on benchmarking a single NVIDIA A100 GPU]: https://cloud.redhat.com/blog/using-nvidia-a100s-multi-instance-gpu-to-run-multiple-workloads-in-parallel-on-a-single-gpu
 
 We ran the benchmark with 1, 2, 3, … or 8 GPUs working together on the
 benchmark, with GPU Peer-to-peer communication done with the NVIDIA
@@ -736,7 +734,7 @@ GPU Parallel Execution Isolation Benchmarking
 ---------------------------------------------
 
 In the second part of the multi-GPU benchmarking, we wanted to
-understand how the DGX A100 was able to run _independent_ workloads on
+understand how DGX™ A100 was able to run _independent_ workloads on
 each of the GPUs. So we took the same benchmark configuration as in
 the multi-GPU case, but we launched 1, 2, … 8 Pods of the benchmark,
 all with one dedicated GPU. We used a shared directory to synchronize
@@ -746,21 +744,22 @@ Pods to signal that they are ready).
 In the plot below, we took the 1-GPU execution as a reference time (no
 parallelism), and compared it against the time it took for _all_ the
 Pods to complete the benchmark.  We can see that with up to 5 or 6
-GPUs running currently, there is barely no slowdown, but it starts to
-rise up with 7 or 8 GPUs. This is most likely due to the saturation of
-the bus between the main memory and the GPU memory.
+GPUs running currently, there is barely any slowdown, but it starts to
+increase with 7 or 8 GPUs. This is most likely due to the heavy data
+transfers between the disk, the main memory and the GPU memory, for
+this particular workload.
 
 ![GPU Isolation: time to threshold](plots/gpu-isolation_time-to-threshold.png)
 
-Final words
+Final Words
 ===========
 
-In this blog post, we presented how we performed the function
-validation of the OpenShift GPU Operator running on 8 GPUs of the DGX-A100. We
-described the different Multi-Instance GPU (MIG) modes that we tested,
-as well as how the values of the node labels and GPU resources for
-these different settings. We also conducted a performance benchmark,
-involving the 8 GPUs running simultaneously, either all training a
+In this blog, we presented how we performed the function validation of
+the OpenShift GPU Operator running on eight GPUs within DGX A100™. We
+described the different MIG modes that we tested, as well as the
+values of the node labels and kubernetes resources exposed with these
+different settings. We also conducted a performance benchmark,
+involving the eight GPUs running simultaneously, either all training a
 single AI/ML model, or all performing independent computations.
 
 As a follow-up of this work, we're planning on doing more work around
