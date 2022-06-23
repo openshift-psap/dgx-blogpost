@@ -755,7 +755,7 @@ Final Words
 ===========
 
 In this blog, we presented how we performed the function validation of
-the OpenShift GPU Operator running on eight GPUs within DGX A100™. We
+the OpenShift GPU Operator running on eight GPUs within DGX™ A100. We
 described the different MIG modes that we tested, as well as the
 values of the node labels and kubernetes resources exposed with these
 different settings. We also conducted a performance benchmark,
