@@ -231,8 +231,8 @@ benchmarks to run gets larger.
 
 To solve this problem, we used the [`MatrixBenchmarking`] framework,
 which allows specifying a list of workload configurations that should
-be benchmarked. See this configuration file for the settings used,
-and this directory for the code used for running and plotting
+be benchmarked. See [this configuration file] for the settings used,
+and [this directory] for the code used for running and plotting
 the benchmark.
 
 [`MatrixBenchmarking`]: https://github.com/openshift-psap/matrix-benchmarking/tree/693be58f72c2f8f96fd3f77f6e6d08637b183c4e
